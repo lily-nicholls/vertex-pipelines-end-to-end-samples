@@ -13,10 +13,16 @@
 # limitations under the License.
 
 from kfp.v2.dsl import Dataset, Input, Output, Model, component
-from pipelines.kfp_components.dependencies import PYTHON37, XGBOOST, SKLEARN, PANDAS
+from pipelines.kfp_components.dependencies import (
+    PYTHON37,
+    XGBOOST,
+    SKLEARN,
+    PANDAS,
+    JOBLIB,
+)
 
 
-@component(base_image=PYTHON37, packages_to_install=[XGBOOST, SKLEARN, PANDAS])
+@component(base_image=PYTHON37, packages_to_install=[XGBOOST, SKLEARN, PANDAS, JOBLIB])
 def predict_xgboost_model(
     input_data: Input[Dataset],
     model: Input[Model],
@@ -50,6 +56,8 @@ def predict_xgboost_model(
     import os
     import pandas
     import joblib
+
+    # import pickle
     from typing import Iterator
     from pathlib import Path
 
@@ -93,6 +101,10 @@ def predict_xgboost_model(
     # load model
     model_path = os.path.join(model.path, "model.joblib")
     model = joblib.load(model_path)
+
+    # model_path = os.path.join(model.path, "model.pkl")
+    # with open(model_path, "rb") as model_file:
+    #     model = pickle.load(model_file)
 
     # predict and save to prediction column
     df[predictions_column_name] = model.predict(X)

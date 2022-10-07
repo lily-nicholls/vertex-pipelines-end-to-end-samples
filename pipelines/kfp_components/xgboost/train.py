@@ -13,12 +13,18 @@
 # limitations under the License.
 
 from kfp.v2.dsl import Artifact, Input, Output, Dataset, Model, component
-from pipelines.kfp_components.dependencies import PYTHON37, XGBOOST, SKLEARN, PANDAS
+from pipelines.kfp_components.dependencies import (
+    PYTHON37,
+    XGBOOST,
+    SKLEARN,
+    PANDAS,
+    JOBLIB,
+)
 
 
 @component(
     base_image=PYTHON37,
-    packages_to_install=[XGBOOST, SKLEARN, PANDAS],
+    packages_to_install=[XGBOOST, SKLEARN, PANDAS, JOBLIB],
 )
 def train_xgboost_model(
     training_data: Input[Dataset],
@@ -59,6 +65,8 @@ def train_xgboost_model(
     import logging
     import pandas
     import joblib
+
+    # import pickle
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import StandardScaler, OrdinalEncoder, OneHotEncoder
     from sklearn.compose import ColumnTransformer
@@ -189,6 +197,8 @@ def train_xgboost_model(
 
     logging.info(f"Save model to: {model.path}")
     joblib.dump(pipeline, model.path + "/model.joblib")
+    # with open(model.path + "/model.pkl", "wb") as model_file:
+    #     pickle.dump(pipeline, model_file)
 
     logging.info(f"Save metrics to: {metrics_artifact.path}")
     with open(metrics_artifact.path, "w") as fp:
