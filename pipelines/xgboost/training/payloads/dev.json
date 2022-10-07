@@ -8,7 +8,7 @@
         "project_location": "europe-west2",
         "pipeline_files_gcs_path": "gs://lily-pipeline-root-bucket/pipelines",
         "ingestion_project_id": "dt-lily-sandbox-dev",
-        "model_name": "xgboost-with-preprocessing-joblib",
+        "model_name": "xgboost-with-preprocessing",
         "model_label": "label_name",
         "tfdv_schema_filename": "tfdv_schema_training.pbtxt",
         "tfdv_train_stats_path": "gs://lily-pipeline-root-bucket/train_stats/train.stats",
