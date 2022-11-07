@@ -441,6 +441,7 @@ def tensorflow_pipeline(
                         pipeline_job_name="{{$.pipeline_job_name}}",
                     )
                 ),
+                parent_model=champion_model_resource_name,
             ).set_display_name("Upload challenger model")
 
             # Copy training stats to well-known location

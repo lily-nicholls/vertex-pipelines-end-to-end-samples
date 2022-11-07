@@ -26,6 +26,7 @@ def upload_model(
     labels: dict,
     description: str = None,
     sync: bool = True,
+    parent_model: str = None,
 ) -> str:
     """
     Fetch a model given a model name (display name) and export to GCS.
@@ -49,6 +50,8 @@ def upload_model(
             See https://goo.gl/xmQnxf for more information
             and examples of labels.
         sync (bool): Upload model synchronously. Defaults to True.
+        parent_model (str): resource name of an existing model to create a new
+            version of. Defaults to None.
 
     Returns:
         str: Resource name of the exported model.
@@ -62,14 +65,15 @@ def upload_model(
 
     logging.info("upload model...")
     model = Model.upload(
-        display_name,
-        serving_container_image_uri,
+        display_name=display_name,
+        serving_container_image_uri=serving_container_image_uri,
         artifact_uri=artifact_uri,
         description=description,
         project=project_id,
         location=project_location,
         labels=labels,
         sync=sync,
+        parent_model=parent_model,
     )
 
     logging.info(f"uploaded model {model}")

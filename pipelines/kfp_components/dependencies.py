@@ -39,7 +39,7 @@ SKL_SERVING_CONTAINER_IMAGE_URI = (
 # Google SDK specific
 GOOGLE_CLOUD_BIGQUERY = "google-cloud-bigquery==2.30.0"
 GOOGLE_CLOUD_STORAGE = "google-cloud-storage==1.42.2"
-GOOGLE_CLOUD_AIPLATFORM = "google-cloud-aiplatform==1.10.0"
+GOOGLE_CLOUD_AIPLATFORM = "google-cloud-aiplatform==1.18.0"
 
 # TF specific
 TENSORFLOW = "tensorflow==2.7.1"
